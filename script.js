@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoTextElement = document.getElementById('logo-text');
     const logoContainer = document.querySelector('.logo-container');
     const mainContainer = document.querySelector('.container');
-    const text = "NAMA ANDA"; // Ganti dengan nama atau logo Anda
+    const text = "JhnzZ 25"; // Ganti dengan nama atau logo Anda
     let index = 0;
 
     // Fungsi untuk menampilkan logo dengan animasi
