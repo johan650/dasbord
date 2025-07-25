@@ -3,59 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Saya</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <title>Digital Hub | Nama Anda</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-
-    <div class="background-shapes"></div>
-
-    <div class="loader-container">
-        <div class="loader"></div>
-    </div>
-    <div class="logo-container">
-        <img src="logo.png" alt="Logo Saya" class="logo-image">
-    </div>
+    <canvas id="particle-canvas"></canvas>
 
     <div class="container">
-        
-        <p class="welcome-text">
-            Selamat datang di Halaman Saya — Berikut adalah sosial media saya!
-        </p>
-        
-        <header>
-            <h1 class="logo" id="logo-text"></h1>
+
+        <header class="header">
+            <img src="https://img1.pixhost.to/images/7475/625823070_imgtmp.jpg" alt="Foto Profil" class="profile-picture">
+            <h1 class="profile-name">Zinz Store</h1>
+            <p class="profile-tagline">Store All kebutuhan digital</p>
         </header>
 
         <main>
-            <a href="https://lynkzinzstore.vercel.app/" class="link-card store-link">
-                <i class="fa-solid fa-store"></i>
-                <span>Kunjungi Store Saya</span>
+            <h2 class="section-title">Produk</h2>
+            <a href="https://belipanelzinz.jhnz.online" class="link-card">
+                <i class="fa-solid fa-server"></i>
+                <span>Panel Pterodactyl</span>
             </a>
+            <a href="https://zinzstoresuntiksosmed.jhnz.my.id" class="link-card">
+                <i class="fa-solid fa-syringe"></i>
+                <span>Suntik All Sosmed</span>
+            </a>
+            <div class="explanation-box" id="produk-explanation">
+                <p>Kami menyediakan layanan digital terbaik untuk kebutuhan Anda. <strong>Panel Pterodactyl</strong>panel run bot WhatsApp dan telegram untuk menjalankan bot anda <strong>Suntik All Sosmed</strong> dirancang untuk meningkatkan jangkauan dan interaksi akun media sosial Anda secara signifikan.</p>
+            </div>
 
-            <a href="https://jhnz.online/" class="link-card main-website-link">
-                <i class="fa-solid fa-globe"></i>
-                <span>Website Utama</span>
-            </a>
 
-            <a href="https://wa.me/6283173432826?text=Halo,%20Saya%20Pesan%20Website%20Sederhana." class="link-card">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Pemesanan Sc/Web</span>
+            <h2 class="section-title">Sosial Media</h2>
+            <a href="https://youtube.com/@jhnzsnce?si=MNnAtVRuIIUfPK0X" class="link-card">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
             </a>
-            <div class="social-links">
-                <a href="https://www.instagram.com/ditzxyad/profilecard/?igsh=MXdkM28ybmVianMzcw==" aria-label="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://www.tiktok.com/@vdhz67" aria-label="TikTok">
-                    <i class="fa-brands fa-tiktok"></i>
-                </a>
+            <a href="https://www.tiktok.com/@jhnzz57?_t=ZS-8yKGqzRMqiv&_r=1" class="link-card">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+            <a href="https://www.instagram.com/ditzxyad/profilecard/?igsh=MXdkM28ybmVianMzcw==" class="link-card">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <div class="explanation-box" id="sosmed-explanation">
+                <p>Ikuti perjalanan dan konten kreatif saya di berbagai platform. Dapatkan update terbaru, tutorial, dan hiburan eksklusif. Jangan ragu untuk <strong>Subscribe, Follow,</strong> dan terhubung dengan komunitas kami!</p>
+            </div>
+
+
+            <h2 class="section-title">Kontak</h2>
+            <a href="https://wa.me/6283173432826" class="link-card">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="t.me/Zinzstore" class="link-card">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+            <div class="explanation-box" id="kontak-explanation">
+                <p> Jika chat ceklis di atau C1 di <strong>WhatsApp</strong> Coba hubungi melalui <strong>Telegram</strong> untuk diskusi lebih lanjut mengenai proyek dan layanan. Saya siap membantu Anda.</p>
             </div>
         </main>
 

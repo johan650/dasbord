@@ -1,274 +1,249 @@
-/* --- Pengaturan Global & Font --- */
+/* Import Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400&display=swap');
+
+/* Variabel Warna CSS untuk kemudahan kustomisasi */
+:root {
+    --bg-color: #0d0d0d;
+    --primary-glow: #00f2ff;
+    --secondary-glow: #ff00e5;
+    --text-color: #f0f0f0;
+    --card-bg: rgba(0, 242, 255, 0.05);
+    --border-color: rgba(0, 242, 255, 0.2);
+    --border-hover: rgba(0, 242, 255, 0.8);
+}
+
+/* Reset dan Pengaturan Dasar */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-}
-
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #121017;
-    color: #f0f0f0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
-    flex-direction: column; /* Mengatur elemen secara vertikal */
-    justify-content: flex-start; /* Menata elemen dari atas */
+    justify-content: center;
     align-items: center;
-    overflow: hidden; /* Mencegah scroll yang tidak perlu */
+    min-height: 100vh;
+    padding: 4rem 0;
+    /* overflow-x: hidden; sudah tidak terlalu krusial tapi baik untuk dipertahankan */
+    overflow-x: hidden; 
     position: relative;
-    padding-top: 60px; /* Ruang untuk loader dan logo */
 }
 
-/* --- Latar Belakang Animasi --- */
-body::before {
+/* ===================================================================
+PERBAIKAN UTAMA DI SINI 
+Mengubah 'position' dari 'absolute' menjadi 'fixed'.
+Ini akan "mengunci" latar belakang ke viewport dan mencegahnya 
+mempengaruhi lebar total halaman, sehingga tidak ada lagi "meleber".
+===================================================================
+*/
+body::before, body::after {
     content: '';
-    position: absolute;
+    position: fixed; /* DIUBAH DARI 'absolute' MENJADI 'fixed' */
+    top: 0;
+    left: 50%;
+    min-width: 300vw;
+    min-height: 300vh; /* Menggunakan vh untuk konsistensi */
+    background-color: var(--primary-glow);
+    animation: aurora 20s linear infinite;
+    z-index: -2;
+    filter: blur(100px);
+}
+
+body::after {
+    background-color: var(--secondary-glow);
+    animation-delay: -10s;
+    opacity: 0.7;
+}
+
+@keyframes aurora {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* Canvas untuk Partikel JS */
+#particle-canvas {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #1a1526, #3c1a4d, #1a1526, #4d1a3d);
-    background-size: 400% 400%;
-    animation: movingGradient 15s ease infinite;
-    z-index: -2; /* Di bawah loader dan logo */
+    z-index: -1;
 }
 
-@keyframes movingGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* --- Loader --- */
-.loader-container {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-}
-
-.loader {
-    border: 6px solid rgba(255, 255, 255, 0.2);
-    border-top: 6px solid #c071ff;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* --- Logo Container --- */
-.logo-container {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    opacity: 0; /* Awalnya tidak terlihat */
-    transition: opacity 0.5s ease-in-out, border-radius 0.5s ease-in-out;
-}
-
-.logo-container.loaded {
-    opacity: 1;
-}
-
-.logo-container.rounded {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    overflow: hidden;
-}
-
-.logo-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* --- Kontainer Utama & Animasi Masuk --- */
+/* Kontainer Utama */
 .container {
-    max-width: 500px;
     width: 90%;
-    padding: 40px 20px;
+    max-width: 600px;
     text-align: center;
     position: relative;
     z-index: 1;
-    animation: fadeInSlideUp 1s ease-out forwards;
-    opacity: 0; /* Awalnya tersembunyi */
-    margin-top: 100px; /* Ruang setelah logo */
 }
 
-.container.visible {
-    opacity: 1;
+/* Header Profil */
+.header {
+    margin-bottom: 3rem;
+    animation: slide-in-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-@keyframes fadeInSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.profile-picture {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-glow);
+    padding: 5px;
+    background-color: var(--bg-color);
+    box-shadow: 0 0 25px var(--primary-glow), 0 0 45px var(--secondary-glow) inset;
+    margin-bottom: 1rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* --- Header & Teks (Dipindahkan ke bawah logo container) --- */
-.welcome-text {
-    font-size: 1rem;
-    font-weight: 300;
-    color: #c0c0c0;
-    margin-bottom: 10px;
+.profile-picture:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 35px var(--primary-glow), 0 0 60px var(--secondary-glow) inset, 0 0 10px var(--text-color);
 }
 
-.logo {
+.profile-name {
+    font-family: 'Orbitron', sans-serif;
     font-size: 2.5rem;
-    font-weight: 700;
     letter-spacing: 2px;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(192, 113, 255, 0.7), 0 0 20px rgba(192, 113, 255, 0.5);
-    margin-bottom: 10px;
-    min-height: 48px; /* Menjaga tinggi elemen saat teks diketik */
+    font-weight: 700;
+    /* Efek teks berkilau */
+    background: linear-gradient(90deg, var(--secondary-glow), var(--text-color), var(--primary-glow));
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
 }
 
-/* --- Kartu Link (Gaya Glassmorphism) --- */
+@keyframes shimmer {
+    to { background-position: -200% center; }
+}
+
+.profile-tagline {
+    font-size: 1rem;
+    color: #a0a0a0;
+    margin-top: 0.5rem;
+}
+
+/* Judul Section */
+.section-title {
+    margin: 2.5rem 0 1rem;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-color);
+    animation: fade-in 1.2s 0.8s ease-in-out both;
+}
+
+/* Kartu Link/Tombol */
 .link-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
-    padding: 20px 25px;
-    margin-bottom: 20px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-color);
+    padding: 1rem;
+    margin: 1rem 0;
     text-decoration: none;
-    color: #f0f0f0;
+    border-radius: 50px; /* Bentuk pil */
+    border: 1px solid var(--border-color);
     font-size: 1.1rem;
-    font-weight: 600;
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    font-weight: 400;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: pop-up 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
 }
 
-.link-card:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(192, 113, 255, 0.3);
-}
+/* Animasi Delay untuk setiap kartu */
+.link-card:nth-of-type(1) { animation-delay: 1.0s; }
+.link-card:nth-of-type(2) { animation-delay: 1.1s; }
+.link-card:nth-of-type(3) { animation-delay: 1.3s; }
+.link-card:nth-of-type(4) { animation-delay: 1.4s; }
+.link-card:nth-of-type(5) { animation-delay: 1.5s; }
+.link-card:nth-of-type(6) { animation-delay: 1.7s; }
+.link-card:nth-of-type(7) { animation-delay: 1.8s; }
 
 .link-card i {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    width: 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    color: var(--primary-glow);
 }
 
-/* --- Link Menonjol (Website Utama) --- */
-.main-website-link {
-    position: relative;
-    overflow: hidden; /* Untuk menyembunyikan border animasi */
-    border-color: #c071ff;
-    box-shadow: 0 0 15px rgba(192, 113, 255, 0.5);
+.link-card span {
+    transition: transform 0.3s ease;
 }
 
-.main-website-link:hover {
-    box-shadow: 0 0 25px rgba(192, 113, 255, 0.8);
+/* Efek Hover pada Kartu */
+.link-card:hover {
+    color: var(--bg-color);
+    border-color: var(--border-hover);
+    background: var(--primary-glow);
+    box-shadow: 0 0 20px var(--primary-glow);
 }
 
-
-/* --- Ikon Sosial Media --- */
-.social-links {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+.link-card:hover i {
+    transform: scale(1.2);
+    color: var(--bg-color);
 }
 
-.social-links a {
+/* Gaya untuk Kotak Penjelasan */
+.explanation-box {
+    background: rgba(14, 30, 38, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.2rem 1.5rem;
+    margin-top: 1.5rem;
+    text-align: center;
     color: #c0c0c0;
-    font-size: 2rem;
-    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: pop-up 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
 }
 
-.social-links a:hover {
-    color: #c071ff; /* Warna aksen neon */
-    transform: scale(1.2) translateY(-5px);
-    text-shadow: 0 0 15px rgba(192, 113, 255, 0.8);
+.explanation-box p {
+    font-size: 0.95rem;
+    line-height: 1.7;
 }
 
-.social-links a:nth-child(1) {
-    animation: bounce 2s infinite;
+.explanation-box p strong {
+    color: var(--primary-glow);
+    font-weight: 400; /* Disesuaikan agar tidak terlalu tebal */
 }
 
-.social-links a:nth-child(2) {
-    animation: bounce 2s infinite 0.5s;
+/* Animasi Delay untuk setiap kotak penjelasan */
+#produk-explanation { animation-delay: 1.2s; }
+#sosmed-explanation { animation-delay: 1.6s; }
+#kontak-explanation { animation-delay: 1.9s; }
+
+
+/* Animasi Keyframes */
+@keyframes slide-in-top {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-/* --- Desain Responsif untuk Mobile --- */
-@media (max-width: 600px) {
-    body {
-        padding-top: 40px; /* Ruang untuk loader dan logo mobile */
-    }
-    .loader-container {
-        top: 10px;
-    }
-    .logo-container {
-        top: 10px;
-        width: 60px;
-        height: 60px;
-    }
-    .logo-container.rounded {
-        width: 60px;
-        height: 60px;
-    }
-    .container {
-        padding: 20px 15px;
-        margin-top: 80px; /* Ruang setelah logo mobile */
-    }
-    
-    .logo {
-        font-size: 2rem;
-        min-height: 38px;
-    }
-
-    .welcome-text {
-        font-size: 0.9rem;
-        margin-bottom: 5px;
-    }
-
-    .link-card {
-        padding: 18px 20px;
-        font-size: 1rem;
-    }
-
-    .social-links {
-        margin-top: 30px;
-        gap: 25px;
-    }
-
-    .social-links a {
-        font-size: 1.8rem;
-    }
+@keyframes pop-up {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
